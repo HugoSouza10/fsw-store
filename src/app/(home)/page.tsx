@@ -4,6 +4,7 @@ import ProductList from "./components/product-list";
 import { prismaClient } from "@/lib/prisma";
 import SectionTitle from "./components/section-title";
 import PromoBanner from "./components/promo-banner";
+import Footer from "@/components/ui/footer";
 
 export default async function Home() {
   //Pegando todos os produtos onde o desconto seja maior que zero
@@ -62,6 +63,7 @@ export default async function Home() {
       <SectionTitle>Mouses</SectionTitle>
        <ProductList products={mouses}/>
     </div>
+    <Footer/>
   </div>
  )
 }
