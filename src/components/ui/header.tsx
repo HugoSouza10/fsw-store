@@ -64,11 +64,16 @@ const Header = () => {
                                Fazer Logout
                             </Button>
                         )}
-                     
-                        <Button className="w-full justify-start gap-2" variant="outline">
-                            <HomeIcon size={16}/>
-                             Início
-                        </Button>
+
+                      <SheetClose asChild>
+                        <Link href='/'>
+                                <Button className="w-full justify-start gap-2" variant="outline">
+                                    <HomeIcon size={16}/>
+                                    Início
+                                </Button>
+                            </Link>
+                      </SheetClose>
+                        
                         <Button className="w-full justify-start gap-2" variant="outline">
                             <PercentIcon size={16}/>
                              Ofertas
@@ -84,9 +89,12 @@ const Header = () => {
                     </div>
                 </SheetContent>
             </Sheet>
-            <h1 className="font-semibold text-lg">
-                <span className="text-primary">FSW</span> Store
-            </h1>
+            <Link href='/'>
+                <h1 className="font-semibold text-lg">
+                    <span className="text-primary">FSW</span> Store
+                </h1>
+            </Link>
+            
             <Button size="icon" variant="outline">
                 <ShoppingCartIcon/>
             </Button>
