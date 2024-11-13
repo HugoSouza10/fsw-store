@@ -7,6 +7,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import Cart from "@/components/ui/cart";
 
 const Header = () => {
     //Aqui serve para verificar o status do login
@@ -94,10 +95,17 @@ const Header = () => {
                     <span className="text-primary">FSW</span> Store
                 </h1>
             </Link>
+            <Sheet>
+                <SheetTrigger asChild>
+                    <Button size="icon" variant="outline">
+                        <ShoppingCartIcon/>
+                    </Button>
+                </SheetTrigger>
+                <SheetContent>
+                   <Cart/>
+                </SheetContent>
+            </Sheet>
             
-            <Button size="icon" variant="outline">
-                <ShoppingCartIcon/>
-            </Button>
        </Card>
     )
 }
