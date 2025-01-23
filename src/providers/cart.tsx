@@ -1,6 +1,6 @@
 "use client";
 import { ProductWitchTotalPrice } from "@/helpers/product";
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useMemo, useState } from "react";
 
 
 export interface CartProduct extends ProductWitchTotalPrice {
@@ -12,6 +12,9 @@ interface ICartContext {
     cartTotalPrice: number;
     cartBasePrice: number;
     cartTotalDiscount: number;
+    total: number;
+    subtotal: number;
+    totalDiscount: number;
     addProuctsToCart: (product: CartProduct) => void;
     decreaseProductQuantity: (productId: string) => void;
     increaseProductQuantity: (productId: string) => void;
@@ -23,6 +26,9 @@ export const CartContext = createContext<ICartContext>({
     cartTotalPrice: 0,
     cartBasePrice: 0,
     cartTotalDiscount: 0,
+    total: 0,
+    subtotal: 0,
+    totalDiscount: 0,
     addProuctsToCart: () => {},
     decreaseProductQuantity: () => {},
     increaseProductQuantity: () => {},
@@ -31,6 +37,22 @@ export const CartContext = createContext<ICartContext>({
 
 const CartProvider = ({children}:{children: ReactNode}) => {
     const [products, setProducts] = useState<CartProduct[]>([]);
+
+    // Total sem desconto
+    const subtotal =  useMemo(()=> {
+        return products.reduce((acc, product) => {
+            return acc + Number(product.basePrice);
+        }, 0)
+    }, [products])
+
+    // Total com desconto
+    const total =  useMemo(()=> {
+        return products.reduce((acc, product) => {
+            return acc + product.totalPrice;
+        }, 0)
+    }, [products]);
+
+    const totalDiscount = subtotal - total;
 
     const addProuctsToCart = (product: CartProduct) => {
         // Se o produto já estiver no carrinho, apenas aumente sua quantidade
@@ -92,9 +114,12 @@ const CartProvider = ({children}:{children: ReactNode}) => {
             decreaseProductQuantity,
             increaseProductQuantity,
             removeProductFromCart,
+            total,
+            subtotal,
+            totalDiscount,
             cartTotalPrice: 0,
             cartBasePrice: 0,
-            cartTotalDiscount: 0
+            cartTotalDiscount: 0,
             
         }}>
             {children}
